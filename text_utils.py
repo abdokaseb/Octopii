@@ -1,4 +1,4 @@
-import pytesseract, re, json, nltk, itertools, spacy, difflib, math
+import re, json, nltk, itertools, t, difflib, math
 
 def string_tokenizer(text):
     final_word_list = []
@@ -66,19 +66,13 @@ def id_card_numbers_pii(text, rules):
 
     return results
 
-def read_pdf(pdf):
-    pdf_contents=""
-    for page in pdf:
-        pdf_contents += str(pytesseract.image_to_string(page, config = '--psm 12'))
-
-    return pdf_contents
-
-# python -m spacy download en_core_web_sm
 def regional_pii(text):
     import locationtagger
     try:
         place_entity = locationtagger.find_locations(text = text)
     except LookupError:
+        import spacy
+        spacy.load('en_core_web_sm')
         nltk.downloader.download('punkt')
         nltk.download('averaged_perceptron_tagger')
         nltk.download('maxent_ne_chunker')
