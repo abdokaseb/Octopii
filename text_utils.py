@@ -1,4 +1,4 @@
-import re, json, nltk, itertools, t, difflib, math
+import re, json, nltk, itertools, difflib, math
 
 def string_tokenizer(text):
     final_word_list = []
